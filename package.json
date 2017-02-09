@@ -12,7 +12,7 @@
     "home automation"
   ],
   "dependencies": {
-    "squeezenode-lordpengwin": "https://github.com/lordpengwin/squeezenode.git"
+    "squeezenode-mvgrimes": "https://github.com/mvgrimes/squeezenode.git"
   },
   "repository": {
     "type": "git",

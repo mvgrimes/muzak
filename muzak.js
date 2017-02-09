@@ -5,7 +5,7 @@
 
 //  Integration with the squeeze server
 
-var SqueezeServer = require('squeezenode-lordpengwin');
+var SqueezeServer = require('squeezenode-mvgrimes');
 var repromptText = 'What do you want me to do';
 
 // Configuration
