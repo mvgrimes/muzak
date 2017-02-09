@@ -16,3 +16,6 @@ node_modules/
 # Other
 
 muzak.zip
+.node-version
+tmp/
+Session.vim

@@ -1,0 +1,27 @@
+{
+  "name": "muzak-mvgrimes",
+  "author": "Mark Grimes <mgrimes[at]cpan[dot]org>",
+  "version": "0.0.1",
+  "description": "Alexa skill for Logitech Media Server",
+  "main": "musak.js",
+  "keywords": [
+    "alexa",
+    "squeezebox",
+    "logitechmediaserver",
+    "smarthome",
+    "home automation"
+  ],
+  "dependencies": {
+    "squeezenode-lordpengwin": "https://github.com/lordpengwin/squeezenode.git"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mvgrimes/muzak.git"
+  },
+  "scripts": {
+    "build": "zip -vr muzak.zip muzak.js config.js node_modules",
+    "test": ""
+  },
+  "devDependencies": {
+  }
+}

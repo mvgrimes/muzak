@@ -1,45 +1,59 @@
 Muzak
 =====
 
-Muzak is a skill for the Amazon Echo that provides control over a Logitech (Squeezebox) Media Server.
+Muzak is a skill for the Amazon Echo that provides control over a Logitech
+(Squeezebox) Media Server.
 
 How To Use
 ----------
 
-Configuration:
+### Create an Alexa Skill:
 
-* Create an Alexa skill to use to connect to your server using the provided files in speechAssets. Note: you will need to modify Players.txt to match the names of the players in your network and use it to populate a custom slot.
-* Edit the provided config.js file and enter the required values to allow the skill to connect to your squeezebox server
- * This should include the URL and credentials for your Logitech Media Server and the App ID of the Alexa skill created above
-* Download and install https://github.com/lordpengwin/squeezenode in a local directory of muzak called node_modules/squeezenode-lordpengwin
- * `cd` to the node_modules/squeezenode-lordpengwin directory and execute 'npm install'. This should download and install the dependencies that squeezenode needs.
+- Visit: https://developer.amazon.com/myapps.html
+- Navigate to Alexa then Alexa Skills Kit
+- Create a new "Custom" skill
+- Audio Player should be No
+- Copy and paste the Intent Schema, Custom Slot Types and Sample Utterances
+  from the file in speechAssets
+- Use the lambda ARN identifier that you'll create below
 
-Publish the Skill
+Note: you will need to modify `speechAssets/Players.txt` to match the names of
+the players in your network and use it to populate a custom slot.
 
-* Create a function in Amazon Lambda
-* In the muzak top level directory Zip up the files to upload to Lambda
-  zip -r muzak.zip muzak.js config.js node_modules
+### Configuration:
 
-Commands:
+Edit the provided config.js file and enter the required values to allow the
+skill to connect to your squeezebox server and the App ID of the Alexa skill
+created above.
 
-* Start Player  
-  Starts the named player using a random play list of songs
-* Stop Player  
-  Stops the named player
-* Set Volume  
-  Sets the volume of the named player to the given level between 0 and 100
-* Increase/decrease volume  
-  Increases or decreases the volume of the named player by 10
-* Sync Players  
-  Syncs the first named player to the second
-* Unsync Player  
-  Unsyncs the named player
-* Whats Playing  
-  Returns information about the current song playing on the named player
+Run `npm install` to download the prerequesites into `node_modules`.
 
-Interactive Mode:  
+Run `npm run build` to create `musak.zip` with the script, configuration and
+dependencies.
 
-An interactive mode is supported where multiple commands may be issued in one session. The target player is remembered between requests so that it does not have to be specified. e.g.
+### Create an Amazon Lambda function:
+
+- Visit: https://console.aws.amazon.com/lambda/home
+- Create a new lambda function in the east region
+- Upload the `muzak.zip` file created above
+- Set the Handler to `muzak.hander`
+
+Commands
+--------
+
+* Start Player -- Starts the named player using a random play list of songs
+* Stop Player -- Stops the named player
+* Set Volume -- Sets the volume of the named player to the given level between 0 and 100
+* Increase/decrease volume -- Increases or decreases the volume of the named player by 10
+* Sync Players -- Syncs the first named player to the second
+* Unsync Player -- Unsyncs the named player
+* Whats Playing -- Returns information about the current song playing on the named player
+
+### Interactive Mode:
+
+An interactive mode is supported where multiple commands may be issued in one
+session. The target player is remembered between requests so that it does not
+have to be specified. e.g.
 
 * "Alexa open muzak"
 * "select player1"
@@ -47,6 +61,19 @@ An interactive mode is supported where multiple commands may be issued in one se
 * "set volume to 25"
 * "exit"
 
-Credits
+Credits and Reason for Fork
 -------
-* This skill uses an enhanced version of Piotr Raczynski's squeezenode Node.JS module. It has been modified to support basic HTTP authentication as well as some additional functionality
+
+This is a fork of lordpengwin's muzak (https://github.com/lordpengwin/muzak).
+It was forked to better fit my needs, some differences:
+
+- A default player can be specified in the config file
+- Stop causes the player to be paused, not powered off
+- Play will un-pause
+- Adds Next Song command
+- Proper package.json for easier setup
+
+This skill uses an enhanced version of Piotr Raczynski's squeezenode Node.JS
+module. It has been modified to support basic HTTP authentication as well as
+some additional functionality. I have further modified it to support https
+and will publish it shortly.
