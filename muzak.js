@@ -146,11 +146,17 @@ function dispatchIntent(squeezeserver, players, intent, session, callback) {
     } else {
 
         // Try to find the target player
+        var player = findPlayerObject(squeezeserver, players, (
+              (typeof intent.slots.Player.value !== 'undefined') && (intent.slots.Player.value !== null)
+              ? intent.slots.Player.value
+              : (  (typeof session.attributes !== 'undefined') && (typeof session.attributes.player !== 'undefined')
+                   ? session.attributes.player
+                   : config.defaultPlayerName
+                )
+              )
+            );
 
-        var player = findPlayerObject(squeezeserver, players, ((typeof intent.slots.Player.value !== 'undefined') && (intent.slots.Player.value != null) ?
-                                                                           intent.slots.Player.value :
-                                                                           (typeof session.attributes !== 'undefined' ? session.attributes.player : "")));
-        if (player == null) {
+        if (player === null) {
 
             // Couldn't find the player, return an error response
 
@@ -168,6 +174,12 @@ function dispatchIntent(squeezeserver, players, intent, session, callback) {
                 startPlayer(player, session, callback);
             } else if ("StopPlayer" == intentName) {
                 stopPlayer(player, session, callback);
+            } else if ("NextSong" == intentName) {
+                nextSong(player, session, callback);
+            } else if ("ChangePlaylist" == intentName) {
+                setPlaylist(player, intent, session, callback);
+            } else if ("ListPlaylists" == intentName) {
+                listPlaylists(player, session, callback);
             } else if ("UnsyncPlayer" == intentName) {
                 unsyncPlayer(player, session, callback);
             } else if ("SetVolume" == intentName) {
@@ -251,7 +263,7 @@ function startPlayer(player, session, callback) {
 
         // Start the player
 
-        player.randomPlay("tracks", function(reply) {
+        player.play( function(reply) {
             if (reply.ok)
                 callback(session.attributes, buildSpeechletResponse("Start Player", "Playing " + player.name, null, session.new));
             else
@@ -295,7 +307,7 @@ function stopPlayer(player, session, callback) {
 
         // Stop the player
 
-        player.power(0, function(reply) {
+        player.pause( function(reply) {
             if (reply.ok)
                 callback(session.attributes, buildSpeechletResponse("Stop Player", "Stopped " + player.name, null, session.new));
             else {
@@ -307,6 +319,115 @@ function stopPlayer(player, session, callback) {
     } catch (ex) {
         console.log("Caught exception in stopPlayer %j", ex);
         callback(session.attributes, buildSpeechletResponse("Stop Player", "Caught Exception", null, true));
+    }
+}
+
+/**
+ * Advance to next song
+ *
+ * @param player The player to stop
+ * @param session The current session
+ * @param callback The callback to use to return the result
+ */
+
+function nextSong(player, session, callback) {
+
+    try {
+
+        console.log("In nextSong with player %s", player.name);
+
+        // Stop the player
+
+        player.next( function(reply) {
+            if (reply.ok)
+                callback(session.attributes, buildSpeechletResponse("Next Song", "Advanced " + player.name, null, session.new));
+            else {
+                console.log("Reply %j", reply);
+                callback(session.attributes, buildSpeechletResponse("Next Song", "Failed to advance player " + player.name, null, true));
+            }
+        });
+
+    } catch (ex) {
+        console.log("Caught exception in nextSong %j", ex);
+        callback(session.attributes, buildSpeechletResponse("Next Song", "Caught Exception", null, true));
+    }
+}
+
+/**
+ * List playlists
+ *
+ * @param player The player to stop
+ * @param session The current session
+ * @param callback The callback to use to return the result
+ */
+
+function listPlaylists(player, session, callback) {
+
+    try {
+
+        console.log("In listPlaylists with player %s", player.name);
+
+        // Change to different playlist
+        var playlists = Object.keys( config.playlists ).join(', ');
+        callback(session.attributes, buildSpeechletResponse("List Playlist", "The following playlists are available: " + playlists, null, session.new));
+
+    } catch (ex) {
+        console.log("Caught exception in listPlaylists %j", ex);
+        callback(session.attributes, buildSpeechletResponse("List Playlist", "Caught Exception", null, true));
+    }
+}
+
+
+/**
+ * Change to new playlist
+ *
+ * @param player The player to stop
+ * @param intent The target intent
+ * @param session The current session
+ * @param callback The callback to use to return the result
+ */
+
+function setPlaylist(player, intent, session, callback) {
+
+    try {
+
+        console.log("In setPlaylist with player %s", player.name);
+
+        var playlist = intent.slots.Playlist && intent.slots.Playlist.value;
+        console.log("... and playlist is %j", playlist);
+        if( typeof playlist === 'undefined' || playlist === null ){
+            return callback(session.attributes,
+              buildSpeechletResponse(
+                "Change Playlist",
+                "Unable to find that playlist",
+                null, session.new
+              ));
+        }
+
+        // Change to different playlist
+        var url = config.playlists[playlist];
+        console.log("... and url is %j", url);
+        if( typeof url === 'undefined' || url === null ){
+            return callback(session.attributes,
+              buildSpeechletResponse(
+                "Change Playlist",
+                "Unable to find a playlist for " + playlist,
+                null, session.new
+              ));
+        }
+
+        player.setPlaylist( url, function(reply) {
+            if (reply.ok)
+                callback(session.attributes, buildSpeechletResponse("Change Playlist", "Change " + player.name + " playlist to " + playlist, null, session.new));
+            else {
+                console.log("Reply %j", reply);
+                callback(session.attributes, buildSpeechletResponse("Change Playlist", "Failed to change player " + player.name + " playlist to " + playlist, null, true));
+            }
+        });
+
+    } catch (ex) {
+        console.log("Caught exception in setPlaylist %j", ex);
+        callback(session.attributes, buildSpeechletResponse("Change Playlist", "Caught Exception", null, true));
     }
 }
 
@@ -562,12 +683,12 @@ function findPlayerObject(squeezeserver, players, name) {
  */
 
 function normalizePlayer(playerName) {
+    if( typeof playerName === 'undefined' ) return playerName;
 
     // After the switch to custom slots multi name players like living room became living-room. Revert the string back to what it was
 
-    playerName = playerName.replace("-", " ");
-    if (playerName.toLowerCase() == "livingroom")
-        playerName = "living room";
+    playerName = playerName.toLowerCase().replace("-", " ");
+    if (playerName == "livingroom") playerName = "living room";
 
     return playerName;
 }

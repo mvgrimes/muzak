@@ -19,6 +19,37 @@
       ]
     },
     {
+      "intent": "NextSong",
+      "slots": [
+        {
+          "name": "Player",
+          "type": "PLAYERS"
+        }
+      ]
+    },
+    {
+      "intent": "ListPlaylists",
+      "slots": [
+        {
+          "name": "Player",
+          "type": "PLAYERS"
+        }
+      ]
+    },
+    {
+      "intent": "ChangePlaylist",
+      "slots": [
+        {
+          "name": "Player",
+          "type": "PLAYERS"
+        },
+        {
+          "name": "Playlist",
+          "type": "PLAYLISTS"
+        }
+      ]
+    },
+    {
       "intent": "SyncPlayers",
       "slots": [
         {

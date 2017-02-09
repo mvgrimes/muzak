@@ -1,4 +1,6 @@
 StartPlayer start
+StartPlayer play
+StartPlayer play music
 StartPlayer play {Player}
 StartPlayer play music in {Player}
 StartPlayer start {Player}
@@ -6,11 +8,32 @@ StartPlayer start player in {Player}
 StartPlayer start player {Player}
 
 StopPlayer stop
+StopPlayer stop music
+StopPlayer pause
+StopPlayer pause music
+StopPlayer pause {Player}
+StopPlayer pause player in {Player}
 StopPlayer stop {Player}
 StopPlayer stop player in {Player}
 StopPlayer stop player {Player}
 StopPlayer turn off {Player}
 StopPlayer kill {Player}
+
+NextSong next
+NextSong next song
+NextSong skip
+NextSong skip song
+
+ChangePlaylist change playlist to {Playlist}
+ChangePlaylist change to playlist {Playlist}
+ChangePlaylist switch playlist to {Playlist}
+ChangePlaylist switch to playlist {Playlist}
+ChangePlaylist switch to {Playlist} playlist
+ChangePlaylist change to {Playlist} playlist
+ChangePlaylist play {Playlist} playlist
+
+ListPlaylists what playlists
+ListPlaylists lists playlists
 
 SyncPlayers sync with {SecondPlayer}
 SyncPlayers sync to {SecondPlayer}
