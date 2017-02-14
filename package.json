@@ -12,6 +12,8 @@
     "home automation"
   ],
   "dependencies": {
+    "alexa-sdk": "^1.0.6",
+    "lodash": "^4.17.4",
     "squeezenode-mvgrimes": "https://github.com/mvgrimes/squeezenode.git"
   },
   "repository": {
