@@ -21,8 +21,10 @@ config.playlists = {
   "blues": "pandora://3141422333940492872.mp3",
   "amos lee": "pandora://1712674494826441288.mp3",
   "dishwashing": "pandora://1649044550041233992.mp3",
-  "jack johnson": "pandora//1451670186947013192.mp3",
-  "james taylor": "pandora//1247104798763805256.mp3",
+  "jack johnson": "pandora://1451670186947013192.mp3",
+  "jack johnsen": "pandora://1451670186947013192.mp3",
+  "james taylor": "pandora://1247104798763805256.mp3",
+  "zack brown": "pandora://1489272784537283144.mp3"
 };
 
 module.exports = config;

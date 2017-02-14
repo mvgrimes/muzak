@@ -21,19 +21,32 @@ StopPlayer kill {Player}
 
 NextSong next
 NextSong next song
+NextSong next song in {Player}
+NextSong next song in the {Player}
+NextSong next song on {Player}
+NextSong next song on the {Player}
 NextSong skip
 NextSong skip song
+NextSong skip song in {Player}
+NextSong skip song in the {Player}
+NextSong skip song on {Player}
+NextSong skip song on the {Player}
 
 ChangePlaylist change playlist to {Playlist}
 ChangePlaylist change to playlist {Playlist}
 ChangePlaylist switch playlist to {Playlist}
 ChangePlaylist switch to playlist {Playlist}
+ChangePlaylist switch to the {Playlist} playlist
 ChangePlaylist switch to {Playlist} playlist
+ChangePlaylist change to the {Playlist} playlist
 ChangePlaylist change to {Playlist} playlist
+ChangePlaylist play the {Playlist} playlist
 ChangePlaylist play {Playlist} playlist
 
 ListPlaylists what playlists
+ListPlaylists what playlists
 ListPlaylists lists playlists
+ListPlaylists lists the playlists
 
 SyncPlayers sync with {SecondPlayer}
 SyncPlayers sync to {SecondPlayer}
