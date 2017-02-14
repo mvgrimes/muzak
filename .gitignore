@@ -18,4 +18,5 @@ node_modules/
 muzak.zip
 .node-version
 tmp/
+dist/
 Session.vim

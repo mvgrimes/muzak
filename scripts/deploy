@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# TODO: set fail on error
+
+build(){
+  rm -f dist/muzak.js dist/muzak.zip
+  # zip -rq dist/muzak.zip index.js config.js node_modules # -x node_modules/{aws-lambda-mock-content,chai,eslint,mocha,prettier,webpack}
+  # ls -lh dist/muzak.zip
+  webpack
+  zip dist/muzak.zip dist/index.js
+}
+
+deploy(){
+  AWS_DEFAULT_PROFILE=personal
+  aws --region us-east-1 lambda update-function-code --function-name AlexaLMSInterface --zip-file fileb://dist/muzak.zip
+}
+
+build && deploy
