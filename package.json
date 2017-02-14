@@ -21,9 +21,13 @@
     "url": "https://github.com/mvgrimes/muzak.git"
   },
   "scripts": {
-    "build": "zip -vr muzak.zip muzak.js config.js node_modules",
-    "test": ""
+    "test": "mocha"
   },
   "devDependencies": {
+    "aws-lambda-mock-context": "^3.0.1",
+    "chai": "^3.5.0",
+    "eslint": "^3.15.0",
+    "mocha": "^3.2.0",
+    "prettier": "^0.16.0"
   }
 }
