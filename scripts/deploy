@@ -3,11 +3,18 @@
 # TODO: set fail on error
 
 build(){
-  rm -f dist/muzak.js dist/muzak.zip
-  # zip -rq dist/muzak.zip index.js config.js node_modules # -x node_modules/{aws-lambda-mock-content,chai,eslint,mocha,prettier,webpack}
-  # ls -lh dist/muzak.zip
+  rm -f dist/index.js dist/muzak.js dist/muzak.zip
+
+  # # Zip everything including node_modules
+  # zip -rq dist/muzak.zip index.js config.js node_modules -x node_modules/{aws-lambda-mock-content,chai,eslint,mocha,prettier,webpack}
+
+  # Use webpack
+  ls -lh dist/muzak.zip
   webpack
-  zip dist/muzak.zip dist/index.js
+  (
+    cd dist
+    zip muzak.zip index.js
+  )
 }
 
 deploy(){
@@ -15,4 +22,5 @@ deploy(){
   aws --region us-east-1 lambda update-function-code --function-name AlexaLMSInterface --zip-file fileb://dist/muzak.zip
 }
 
+# build
 build && deploy

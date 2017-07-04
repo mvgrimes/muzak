@@ -9,4 +9,5 @@ module.exports = {
     libraryTarget: "commonjs2",
     filename: 'index.js'
   }
+  // externals: [] // ?
 };
