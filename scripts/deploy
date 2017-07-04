@@ -8,8 +8,6 @@ build(){
   # # Zip everything including node_modules
   # zip -rq dist/muzak.zip index.js config.js node_modules -x node_modules/{aws-lambda-mock-content,chai,eslint,mocha,prettier,webpack}
 
-  # Use webpack
-  ls -lh dist/muzak.zip
   webpack
   (
     cd dist
