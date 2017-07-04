@@ -18,7 +18,7 @@ describe('Testing ChangePlaylist intent', function() {
         request: {
           intent: {
             name: 'ChangePlaylist',
-            slots: { Playlist: { name: 'Playlist', value: 'jazz' } }
+            slots: { Playlist: { name: 'Playlist', value: 'jzzz' } }
           }
         }
       }),

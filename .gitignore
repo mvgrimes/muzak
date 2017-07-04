@@ -20,3 +20,5 @@ muzak.zip
 tmp/
 dist/
 Session.vim
+
+.env

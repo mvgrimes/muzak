@@ -5,6 +5,7 @@
 
 var Alexa = require('alexa-sdk');
 var _ = require('lodash');
+var FuzzySet = require('fuzzyset.js');
 
 //  Integration with the squeeze server
 
@@ -14,6 +15,7 @@ var repromptText = 'What do you want me to do';
 // Configuration
 
 var config = require('./config');
+var fuzzyPlaylists = FuzzySet( Object.keys( config.playlists ) );
 
 /**
  * Route the incoming request based on type (LaunchRequest, IntentRequest,
@@ -292,9 +294,16 @@ function listPlaylists() {
  *
  */
 
+function getPlaylist(guess) {
+  var matches = fuzzyPlaylists.get( guess );
+  console.log('... guess: ${guess}:', matches);
+  return matches[0][1];
+}
+
 function setPlaylist() {
   var intent = this.event.request.intent;
-  var playlist = intent.slots.Playlist && intent.slots.Playlist.value;
+  var playlist = intent.slots.Playlist && getPlaylist(intent.slots.Playlist.value);
+
   console.log('... and playlist is %j', playlist);
   if (typeof playlist === 'undefined' || playlist === null) {
     this.emit(

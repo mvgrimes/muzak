@@ -13,6 +13,7 @@
   ],
   "dependencies": {
     "alexa-sdk": "^1.0.6",
+    "fuzzyset.js": "0.0.3",
     "lodash": "^4.17.4",
     "squeezenode-mvgrimes": "https://github.com/mvgrimes/squeezenode.git"
   },
@@ -22,11 +23,12 @@
   },
   "scripts": {
     "deploy": "./scripts/deploy",
-    "test": "mocha"
+    "test": "mocha -r dotenv/config"
   },
   "devDependencies": {
     "aws-lambda-mock-context": "^3.0.1",
     "chai": "^3.5.0",
+    "dotenv": "^4.0.0",
     "eslint": "^3.15.0",
     "mocha": "^3.2.0",
     "prettier": "^0.16.0",

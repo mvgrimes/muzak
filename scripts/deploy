@@ -19,8 +19,16 @@ build(){
 
 deploy(){
   AWS_DEFAULT_PROFILE=personal
-  aws --region us-east-1 lambda update-function-code --function-name AlexaLMSInterface --zip-file fileb://dist/muzak.zip
+  AWS_ENV="Variables=\"{$( perl -e'print join ",", map { chomp; $_ } <>' < .env )}\""
+  AWS_ENV="$( perl -MJSON=encode_json -E'while(<>){ chomp; my ($k,$v) = split /=/, $_, 2; $h->{$k}=$v }; print encode_json { Variables => $h }' < .env )"
+  echo $AWS_ENV
+  aws --region us-east-1 lambda update-function-configuration \
+      --function-name AlexaLMSInterface \
+      --environment "$AWS_ENV"
+  aws --region us-east-1 lambda update-function-code \
+      --function-name AlexaLMSInterface --zip-file fileb://dist/muzak.zip
 }
 
-# build
 build && deploy
+# build
+# deploy
