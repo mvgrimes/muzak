@@ -30,7 +30,6 @@
     "test": "mocha -r dotenv/config"
   },
   "devDependencies": {
-    "aws-lambda-mock-context": "^3.0.1",
     "chai": "^3.5.0",
     "dotenv": "^4.0.0",
     "eslint": "^3.15.0",

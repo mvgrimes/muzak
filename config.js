@@ -7,8 +7,8 @@ config.alexaAppID = process.env.ALEXAAPPID;
 // The connection properties for the squeezebox server. This server must be accessible from the Internet so it should
 // be protected by basic authentication. If it is not protected the username and password can be null.
 
-config.squeezeserverURL = process.env.URL;
-config.squeezeserverPort = process.env.PORT;
+config.squeezeserverURL = process.env.LMS_URL;
+config.squeezeserverPort = process.env.LMS_PORT;
 config.squeezeServerUsername = process.env.USERNAME;
 config.squeezeServerPassword = process.env.PASSWORD;
 config.defaultPlayerName = 'kitchen';
