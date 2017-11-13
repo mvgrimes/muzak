@@ -65,8 +65,8 @@ describe('Testing ChangePlaylist intent', function() {
   describe('The response is correct', () => {
     it('should have playerAttributes == den', () => {
       expect(speechResponse.sessionAttributes.player).not.to.be.null;
-      expect(speechResponse.sessionAttributes.player.toLowerCase()).to.equal(
-        'den'
+      expect(speechResponse.sessionAttributes.player.toLowerCase()).to.match(
+        /(den|kitchen|porch|outdoors)/
       );
     });
 
@@ -75,7 +75,7 @@ describe('Testing ChangePlaylist intent', function() {
       // expect(speechResponse.response.outputSpeech.text).to.equal('Stopped Den');
       expect(speechResponse.response.outputSpeech.type).to.equal('SSML');
       expect(speechResponse.response.outputSpeech.ssml).to.match(
-        /Change Den playlist to jazz/
+        /Change (Den|Kitchen|Outdoors) playlist to jazz/
       );
     });
 
@@ -83,7 +83,7 @@ describe('Testing ChangePlaylist intent', function() {
       expect(speechResponse.response.card.type).to.equal('Simple');
       expect(speechResponse.response.card.title).to.match(/Change Playlist/);
       expect(speechResponse.response.card.content).to.match(
-        /Change Den playlist to jazz/
+        /Change (Den|Kitchen|Outdoors|Porch) playlist to jazz/
       );
     });
     // it('reprompt is correct', () => {

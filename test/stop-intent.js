@@ -58,8 +58,8 @@ describe('Testing StopPlayer intent', function() {
   describe('The response is correct', () => {
     it('should have playerAttributes == den', () => {
       expect(speechResponse.sessionAttributes.player).not.to.be.null;
-      expect(speechResponse.sessionAttributes.player.toLowerCase()).to.equal(
-        'den'
+      expect(speechResponse.sessionAttributes.player.toLowerCase()).to.match(
+        /(den|kitchen|porch|outdoors)/
       );
     });
 
@@ -68,14 +68,14 @@ describe('Testing StopPlayer intent', function() {
       // expect(speechResponse.response.outputSpeech.text).to.equal('Stopped Den');
       expect(speechResponse.response.outputSpeech.type).to.equal('SSML');
       expect(speechResponse.response.outputSpeech.ssml).to.match(
-        /Stopping Den/
+        /Stopping (Den|Kitchen|Outdoors|Porch)/
       );
     });
 
     it('card is Simple == Stop Player', () => {
       expect(speechResponse.response.card.type).to.equal('Simple');
       expect(speechResponse.response.card.title).to.match(/Stopped/);
-      expect(speechResponse.response.card.content).to.match(/Stopping Den/);
+      expect(speechResponse.response.card.content).to.match(/Stopping (Den|Kitchen|Outdoors|Porch)/);
     });
     // it('reprompt is correct', () => {
     //   expect(speechResponse.response.reprompt.outputSpeech.type).to.equal(

@@ -58,8 +58,8 @@ describe('Testing WhatsPlaying intent', function() {
   describe('The response is correct', () => {
     it('should have playerAttributes == den', () => {
       expect(speechResponse.sessionAttributes.player).not.to.be.null;
-      expect(speechResponse.sessionAttributes.player.toLowerCase()).to.equal(
-        'den'
+      expect(speechResponse.sessionAttributes.player.toLowerCase()).to.match(
+        /(den|kitchen|porch|outdoors)/
       );
     });
 
@@ -68,7 +68,7 @@ describe('Testing WhatsPlaying intent', function() {
       // expect(speechResponse.response.outputSpeech.text).to.equal('Stopped Den');
       expect(speechResponse.response.outputSpeech.type).to.equal('SSML');
       expect(speechResponse.response.outputSpeech.ssml).to.match(
-        /Player Den is playing .* by .* from .*/
+        /Player (Den|Kitchen|Porch|Outdoors) is playing .* by .* from .*/
       );
     });
 
@@ -76,7 +76,7 @@ describe('Testing WhatsPlaying intent', function() {
       expect(speechResponse.response.card.type).to.equal('Simple');
       expect(speechResponse.response.card.title).to.match(/What is Playing/);
       expect(speechResponse.response.card.content).to.match(
-        /Player Den is playing .* by .* from .*/
+        /Player (Den|Kitchen|Porch|Outdoors) is playing .* by .* from .*/
       );
     });
     // it('reprompt is correct', () => {

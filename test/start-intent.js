@@ -54,10 +54,9 @@ describe('Testing StartPlayer intent', function() {
 
   describe('The response is correct', () => {
     it('should have playerAttributes == den', () => {
-      console.log(speechResponse);
       expect(speechResponse.sessionAttributes.player).not.to.be.null;
-      expect(speechResponse.sessionAttributes.player.toLowerCase()).to.equal(
-        'den'
+      expect(speechResponse.sessionAttributes.player.toLowerCase()).to.match(
+        /(den|kitchen|porch|outdoors)/
       );
     });
 
@@ -66,14 +65,14 @@ describe('Testing StartPlayer intent', function() {
       // expect(speechResponse.response.outputSpeech.text).to.equal('Playing Den');
       expect(speechResponse.response.outputSpeech.type).to.equal('SSML');
       expect(speechResponse.response.outputSpeech.ssml).to.match(
-        /Starting Den/
+        /Starting (Den|Kitchen|Outdoors|Porch)/
       );
     });
 
     it('card is Simple == Start Player', () => {
       expect(speechResponse.response.card.type).to.equal('Simple');
       expect(speechResponse.response.card.title).to.match(/Playing/);
-      expect(speechResponse.response.card.content).to.match(/Starting Den/);
+      expect(speechResponse.response.card.content).to.match(/Starting (Den|Kitchen|Outdoors|Porch)/);
     });
     // it('reprompt is correct', () => {
     //   expect(speechResponse.response.reprompt.outputSpeech.type).to.equal(
