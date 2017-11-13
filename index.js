@@ -47,9 +47,14 @@ var handlers = {
   // IncreaseVolume: function() {
   // DecreaseVolume: function() {
   // SelectPlayer: function() {
-  WhatsPlaying: whatIsPlaying
-  // Unhandled:
+  WhatsPlaying: whatIsPlaying,
+  Unhandled: unhandled
 };
+
+function unhandled() {
+  console.log('unandled:', this.request);
+  this.emit(':tell', 'I am so confused?');
+}
 
 function registerSqueezeServer() {
   var sq = new SqueezeServer(
