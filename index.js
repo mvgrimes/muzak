@@ -15,6 +15,7 @@ var repromptText = 'What do you want me to do';
 // Configuration
 
 var config = require('./config');
+// console.log( Object.keys( config.playlists ) );
 var fuzzyPlaylists = FuzzySet( Object.keys( config.playlists ) );
 
 /**
@@ -608,6 +609,10 @@ function whatIsPlaying() {
   // the song, artist and album
   var player;
   var title, artist, album;
+
+  // this.attributes['stuff'] = 42;
+  // console.log( 'stuff: ' + this.attributes['stuff'] );
+  // console.log( 'attributes: ', this.attributes );
 
   registerAndGetPlayer
     .call(this)

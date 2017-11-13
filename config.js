@@ -12,6 +12,7 @@ config.squeezeserverPort = process.env.PORT;
 config.squeezeServerUsername = process.env.USERNAME;
 config.squeezeServerPassword = process.env.PASSWORD;
 config.defaultPlayerName = 'kitchen';
+// config.defaultPlayerName = 'outdoors';
 
 config.playlists = {
   'jazz': 'pandora://3141420448449849928.mp3',
