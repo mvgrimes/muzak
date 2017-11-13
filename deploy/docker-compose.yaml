@@ -1,0 +1,16 @@
+version: '3'
+services:
+  web:
+    image: ${DOCKER_REGISTRY}mg/alexa-lms
+    ports:
+      - "5001:5000"
+    # volumes:
+    #   - ../:/srv/app/
+    #   - /tmp/checkip:/tmp/checkip
+    environment:
+      ALEXAAPPID: amzn1.ask.skill.cc53a9e3-4b2d-4369-920b-7242d175b1d0
+      URL: https://lms.markandcarrie.com
+      PORT: 443
+      USERNAME: mgrimes
+      PASSWORD: stuff42
+    restart: always

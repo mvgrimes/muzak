@@ -1,0 +1,14 @@
+.DS_Store
+.env
+.eslintrc.yml
+.git
+.gitignore
+.node-version
+
+Session.vim
+
+node_modules/
+deploy/
+speechAssets/
+test/
+tmp/

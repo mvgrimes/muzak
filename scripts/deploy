@@ -1,0 +1,27 @@
+#!/bin/bash
+
+APP=alexa-lms
+
+set -e
+
+echo "pushing $APP..."
+( cd deploy && make build && make push )
+
+echo "uploading..."
+rsync -avP deploy/ pip:/srv/docker/$APP/
+
+# docker login registry.peculier.com
+
+echo "deploy..."
+ssh pip "
+    cd /srv/docker/$APP || exit 1
+    [ -f .env ] && export \$( sed '/^#/d' .env )
+    docker-compose up -d web
+    "
+
+echo "Sleeping to let the container deploy"
+sleep 3
+
+echo "... and services running:"
+ssh pip 'docker ps'
+
