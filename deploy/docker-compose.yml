@@ -1,0 +1,16 @@
+version: '3'
+services:
+  web:
+    image: ${DOCKER_REGISTRY}mg/alexa-lms
+    ports:
+      - "5001:5000"
+    # volumes:
+    #   - ../:/srv/app/
+    environment:  # from .env file
+      ALEXAAPPID: ${ALEXAAPPID}
+      LMS_URL: ${LMS_URL}
+      LMS_PORT: ${LMS_PORT}
+      USERNAME: ${USERNAME}
+      PASSWORD: ${PASSWORD}
+      PORT: ${PORT}
+    restart: always
